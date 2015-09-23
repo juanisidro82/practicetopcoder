@@ -12,3 +12,8 @@ setMethod("whatTime", "Time",
           }
 )
 
+nombreclase = "Time"
+definicion = "whatTime"
+directorio = "~/topcoder/practicetopcoder/SRM 144"
+setwd(directorio)
+source("test.R")

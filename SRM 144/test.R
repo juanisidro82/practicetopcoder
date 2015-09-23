@@ -1,9 +1,3 @@
-nombreclase = "Time"
-definicion = "whatTime"
-directorio = "/home/isidro/topcoder/workspace/SRM 144"
-setwd(directorio)
-
-source(paste(nombreclase, ".R", sep=""))
 library('RUnit')
 
 tipoclases <- getSlots(nombreclase)
