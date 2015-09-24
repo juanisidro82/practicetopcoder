@@ -8,7 +8,7 @@ testarchivo = readLines(paste(nombreclase, ".sample", sep=""))
 entrada = ""
 salida = ""
 for (i in 1:length(testarchivo)) {
-  if (substring(testarchivo[i], 1, 10) == "-- Example") {
+    if (substring(testarchivo[i], 1, 10) != "-- Example") next
     numeroprueba = testarchivo[i]
     entrada = testarchivo[i+1]
     salida =  testarchivo[i+3]
@@ -24,7 +24,7 @@ for (i in 1:length(testarchivo)) {
       print(numeroprueba)
       print("failed")
     }
-  }
+
 }
 
 
