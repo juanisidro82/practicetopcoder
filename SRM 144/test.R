@@ -14,7 +14,9 @@ for (i in 1:length(testarchivo)) {
     salida =  testarchivo[i+3]
     texto = paste("objecto@", names(tipoclases)[1], " = ", entrada, sep ="")
     eval(parse(text=texto))
-    if (checkEquals(salida, whatTime(objecto)))  {
+    resultados = eval(call(definicion, objecto))
+    print(resultados)
+    if (checkEquals(salida, resultados))  {
       print(numeroprueba)
       print("passed")
     }
