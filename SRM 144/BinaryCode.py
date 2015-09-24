@@ -4,26 +4,25 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 class BinaryCode:
     def decode(self, message):
         n = len(message)
-        resultados = [[5]* n, [5] * n]
+        resultados = [[0]* n, [0] * n]
         for i in range(2):
-           for j in range(n):
-                bit = int(message[j])
-                if n == 1 and (bit == i):
-                   resultados[i][0] = bit
-                   continue
-                if j == (n -1):
-                   if bit != (resultados[i][j - 1] + resultados[i][j]):
-                      resultados[i] = "NONE"
-                   continue
+            if (n == 1) and int(message[0]) != i:
+               resultados[i] = "NONE"
+               continue
+            resultados[i][0] = i
+            for j in range(n):
                 if j == 0:
-                   resultados[i][j] = i
-                   resultados[i][j + 1] = bit - i
-                if j > 0:
-                   resultados[i][j + 1] = bit - resultados[i][j - 1] - resultados[i][j]
-                if resultados[i][j + 1] == -1 or resultados[i][j + 1] == 2:
-                   resultados[i] = "NONE"
-                   break
-           if len(resultados[i]) == n:
+                    continue
+                resultados[i][j] = int(message[j - 1])  - resultados[i][j - 1]
+                if j > 1:
+                    resultados[i][j] = resultados[i][j]  - resultados[i][j -2]
+                if resultados[i][j] < 0 or resultados[i][j] > 1:
+                    resultados[i] = "NONE"
+                    break
+                if int(message[j]) < resultados[i][j - 1] + resultados[i][j]:
+                    resultados[i] = "NONE"
+                    break
+            if len(resultados[i]) == n:
               resultados[i] = "".join(str(resultado) for resultado in resultados[i])
         return resultados
 
