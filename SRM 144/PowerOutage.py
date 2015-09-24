@@ -24,12 +24,8 @@ class PowerOutage:
                 if nodo == toJunction[j]:
                     w1[nodo] = w1[fromJunction[j]] + ductLength[j]
                     break
-            print "nodo=" + str(nodo)
-            print w1[nodo]
-            print m1
             if w1[nodo] > m1:
                m1 = w1[nodo]
-        print "sumadisntacia=" + str(sumadistancia1)
         return sumadistancia1 * 2 - m1
 
 
