@@ -24,8 +24,12 @@ for (i in 1:lineastestarchivo) {
     if (tipoclases[1] == "character") texto = paste("objecto@", names(tipoclases)[1], " = \"", entrada, "\"", sep ="")
     eval(parse(text=texto))
     resultados = eval(call(definicion, objecto))
+    print(numeroprueba)
+    print("Esperado")
+    print(salida)
+    print("Calculado")
+    print(resultados)
     if (checkEquals(salida, resultados))  {
-      print(numeroprueba)
       print("passed")
     }
     else {
