@@ -19,7 +19,9 @@ for (i in 1:lineastestarchivo) {
     numeroprueba = testarchivo[i]
     entrada = testarchivo[(i+1):(indicelineavacia - 1)]
     salida =  testarchivo[(indicelineavacia + 1):(indicelineafin - 1)]
-    texto = paste("objecto@", names(tipoclases)[1], " = ", entrada, sep ="")
+    if(length(salida) > 1) salida = salida[-1]
+    if (tipoclases[1] == "numeric") texto = paste("objecto@", names(tipoclases)[1], " = ", entrada, sep ="")
+    if (tipoclases[1] == "character") texto = paste("objecto@", names(tipoclases)[1], " = \"", entrada, "\"", sep ="")
     eval(parse(text=texto))
     resultados = eval(call(definicion, objecto))
     if (checkEquals(salida, resultados))  {
