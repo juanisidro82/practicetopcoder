@@ -1,6 +1,16 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
-
+""" Como la idea es recorrer es verificar todas las uniones, sucede lo siguiente
+no todos los nodos estan conectados entre sí, y a veces se tiene que volver,
+puede suceder tres situaciones, el primero que todos los nodos esten conectados
+en serie, en si con un recorrido uno por uno atravezando uno a la vez es suficiente
+para checarlos todos. El otro caso es que ni un nodo esten conectado entre si, 
+a excepcion de que todos solamente esten conectados al nodo raiz, en ese caso
+sera necesario volver siempre al nodo raíz, en este caso, se deja el nodo que esta
+mas lejos del nodo raíz, para no tener que regresar.
+El otro es el caso intermedio, el que al menos un nodo no esta conectado al raiz,
+y tambien que al menos dos nodos no estan conectados. Me refiero a nodo, como un
+nodo que no es el nodo raíz."""
 class PowerOutage:
     def estimateTimeOut(self, fromJunction, toJunction, ductLength):
         n = len(fromJunction)
@@ -15,18 +25,18 @@ class PowerOutage:
                nodos.append(fromJunction[i])
         m = len(nodos)
         nodos = sorted(nodos)
-        w1 = {}
-        m1 = 0
+        distanciahastanodo = {}
+        distanciamaslarga = 0
         for j in range(m):
-            w1[nodos[j]] = 0
+            distanciahastanodo[nodos[j]] = 0
         for nodo in nodos:
             for j in range(n):
                 if nodo == toJunction[j]:
-                    w1[nodo] = w1[fromJunction[j]] + ductLength[j]
+                    distanciahastanodo[nodo] = distanciahastanodo[fromJunction[j]] + ductLength[j]
                     break
-            if w1[nodo] > m1:
-               m1 = w1[nodo]
-        return sumadistancia1 * 2 - m1
+            if distanciahastanodo[nodo] > distanciamaslarga:
+               distanciamaslarga = distanciahastanodo[nodo]
+        return sumadistancia1 * 2 - distanciamaslarga
 
 
 # CUT begin
