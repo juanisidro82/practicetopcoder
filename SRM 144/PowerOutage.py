@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
-""" Como la idea es recorrer es verificar todas las uniones, sucede lo siguiente
-no todos los nodos estan conectados entre sí, y a veces se tiene que volver,
-puede suceder tres situaciones, el primero que todos los nodos esten conectados
-en serie, en si con un recorrido uno por uno atravezando uno a la vez es suficiente
-para checarlos todos. El otro caso es que ni un nodo esten conectado entre si, 
-a excepcion de que todos solamente esten conectados al nodo raiz, en ese caso
-sera necesario volver siempre al nodo raíz, en este caso, se deja el nodo que esta
-mas lejos del nodo raíz, para no tener que regresar.
-El otro es el caso intermedio, el que al menos un nodo no esta conectado al raiz,
-y tambien que al menos dos nodos no estan conectados. Me refiero a nodo, como un
-nodo que no es el nodo raíz."""
+""" As the idea is to go is to check all joints, the following occurs not all 
+nodes are interconnected, and sometimes you have to go back, three situations
+can happen, the first all nodes are connected in series, if a route Driving
+first past one by one one at a time is enough to check them all. The other case
+is that neither a node ARE connected to each other, with the exception that all
+are connected to only root node, in this case will be necessary to always
+return to the root node, in this case, the node is allowed to this farther from
+the root node, to avoid having to return.
+The other is the intermediate case, that at least one node is not connected to
+the root, and also at least two nodes are not connected. I mean node, as a
+node is not the root node Third case, this situation presents junctions
+interconnected, and not interconnected. To save effort of the engineer,
+we proceed to calculate the distance the each junction to root, and choice the
+junction with the major distance to visit at the end."""
 class PowerOutage:
     def estimateTimeOut(self, fromJunction, toJunction, ductLength):
         n = len(fromJunction)
