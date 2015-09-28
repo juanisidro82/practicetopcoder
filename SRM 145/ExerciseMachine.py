@@ -4,10 +4,6 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 class ExerciseMachine:
     def getPercentages(self, tiempo):
         tiempomaximo = 24 * 3600 - 1
-        print tiempo
-        print tiempo[0:2]
-        print tiempo[3:5]
-        print tiempo[6:8]
         hours = int(tiempo[0:2])
         minutes = int(tiempo[3:5])
         seconds = int(tiempo[6:8])
