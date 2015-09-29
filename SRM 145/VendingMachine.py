@@ -25,7 +25,6 @@ class VendingMachine:
         cols= len(maquina[0])
         columnaactual = 0
         ultimouso = -5
-        print "columnaactual=" + str(columnaactual)
         for i in range(n):
             columnamaxima = 0
             preciocolumnamaximo = 0
@@ -36,7 +35,6 @@ class VendingMachine:
                 if preciocolumnamaximo < preciocolumna:
                    preciocolumnamaximo = preciocolumna
                    columnamaxima = j
-            print "columnamxima=" + str(columnamaxima)
             tiempoactual = times[i]
             if maquina[shelfs[i]][columns[i]] == 0:
                 return -1
@@ -45,9 +43,7 @@ class VendingMachine:
                if distancia > (cols - distancia):
                   distancia = cols - distancia
                contador = contador + distancia
-               print "contador=" + str(contador)
                columnaactual = columnamaxima
-            print "columnaactual=" + str(columnaactual)
             ultimouso = tiempoactual
             maquina[shelfs[i]][columns[i]] = 0
             distancia = math.fabs(columns[i] - columnaactual)
@@ -55,10 +51,6 @@ class VendingMachine:
                distancia = cols - distancia
             columnaactual = columns[i]
             contador =  contador + distancia
-            print "contador=" + str(contador)
-            print "columnaactual=" + str(columnaactual)
-            print maquina
-            print columns
         columnamaxima = 0
         preciocolumnamaximo = 0
         for j in range(cols):
@@ -68,7 +60,6 @@ class VendingMachine:
             if preciocolumnamaximo < preciocolumna:
                 preciocolumnamaximo = preciocolumna
                 columnamaxima = j
-        print "columnamaxima=" + str(columnamaxima)
         distancia = math.fabs(columnamaxima - columnaactual)
         if distancia > (cols - distancia):
             distancia = cols - distancia

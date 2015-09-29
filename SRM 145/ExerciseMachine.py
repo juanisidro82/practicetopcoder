@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
+"""We need the times which divided by the total time multiplied by 100 equals an integer. 
+Since we know that there is ( 100-1 ) whole percentages, then the whole percentage
+by the total time between 100 must have zero waste . We count integers that fulfill this condition
+"""
 class ExerciseMachine:
     def getPercentages(self, tiempo):
         tiempomaximo = 24 * 3600 - 1
