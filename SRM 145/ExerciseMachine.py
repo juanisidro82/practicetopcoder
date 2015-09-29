@@ -10,20 +10,11 @@ class ExerciseMachine:
         tiempo = hours * 3600 + minutes * 60 + seconds
         if tiempo == tiempomaximo:
             return 0
-        partes = 1
-        if (tiempo % 2) == 0:
-            partes = 2
-            tiempo = tiempo / 2
-        if (tiempo % 2) == 0:
-            partes = partes * 2
-            tiempo = tiempo / 2
-        if (tiempo % 5) == 0:
-            partes = partes * 5
-            tiempo = tiempo / 5
-        if (tiempo % 5) == 0:
-            partes = partes * 5
-            tiempo = tiempo / 5
-        return partes - 1
+        partes = 0
+        for i in range(1,100):
+            if (tiempo*i) % 100 == 0:
+                partes = partes + 1
+        return partes
 
 
 # CUT begin
