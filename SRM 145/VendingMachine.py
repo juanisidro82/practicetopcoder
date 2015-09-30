@@ -5,6 +5,7 @@ class VendingMachine:
     def motorUse(self, prices, purchases):
         n = len(purchases)
         tt = 0
+# Create lists variables shelfs, columns, times.
         shelfs = []
         columns = []
         times = []
@@ -13,6 +14,7 @@ class VendingMachine:
             times.append(int(p.split(":")[1]))
             shelfs.append(int(coordenadas.split(",")[0]))
             columns.append(int(coordenadas.split(",")[1]))
+# Create the representation of the machine
         maquina = []
         rows = len(prices)
         for i in range(rows):
@@ -21,6 +23,7 @@ class VendingMachine:
             maquina.append([])
             for j in range(cols):
                 maquina[i].append(int(preciosc[j]))
+# Start the purshases. 
         contador = 0
         cols= len(maquina[0])
         columnaactual = 0
@@ -28,6 +31,7 @@ class VendingMachine:
         for i in range(n):
             columnamaxima = 0
             preciocolumnamaximo = 0
+    # Find the column with highest price
             for j in range(cols):
                 preciocolumna = 0
                 for k in range(rows):
@@ -35,20 +39,28 @@ class VendingMachine:
                 if preciocolumnamaximo < preciocolumna:
                    preciocolumnamaximo = preciocolumna
                    columnamaxima = j
+    # We are in the time of purchase
             tiempoactual = times[i]
+    # In this case in that purchase is invalid, return - 1.
             if maquina[shelfs[i]][columns[i]] == 0:
                 return -1
+    #  Verify that the ultime use was more 5 minutes. In this case, the machine
+    # rotate to more expensive column.
+    #The distance is calculated as the absolute value of the difference of the position initial
+    #to the new position.
             if math.fabs(tiempoactual - ultimouso) >= 5:
-               distancia = math.fabs(columnamaxima - columnaactual)
-               if distancia > (cols - distancia):
-                  distancia = cols - distancia
-               contador = contador + distancia
-               columnaactual = columnamaxima
+                distancia = math.fabs(columnamaxima - columnaactual)
+                if distancia > (cols - distancia):
+                    distancia = cols - distancia
+                contador = contador + distancia
+                columnaactual = columnamaxima
+    # The purchases involves changes in the value of the ultime use and the
+    # retired of the buyed articled.
             ultimouso = tiempoactual
             maquina[shelfs[i]][columns[i]] = 0
             distancia = math.fabs(columns[i] - columnaactual)
             if distancia > (cols - distancia):
-               distancia = cols - distancia
+                distancia = cols - distancia
             columnaactual = columns[i]
             contador =  contador + distancia
         columnamaxima = 0
