@@ -2,9 +2,19 @@
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 class VendingMachine:
+    columnaactual = 0
+    contador = 0
+    cols = 0
+
+    def rotate(self, newcolumn):
+        distancia = math.fabs(newcolumn - self.columnaactual)
+        if distancia > (self.cols - distancia):
+            distancia = self.cols - distancia
+        self.contador = self.contador + distancia
+        self.columnaactual = newcolumn
+
     def motorUse(self, prices, purchases):
         n = len(purchases)
-        tt = 0
 # Create lists variables shelfs, columns, times.
         shelfs = []
         columns = []
@@ -19,20 +29,18 @@ class VendingMachine:
         rows = len(prices)
         for i in range(rows):
             preciosc = prices[i].split(" ")
-            cols = len(preciosc)
+            self.cols = len(preciosc)
             maquina.append([])
-            for j in range(cols):
+            for j in range(self.cols):
                 maquina[i].append(int(preciosc[j]))
 # Start the purshases. 
-        contador = 0
-        cols= len(maquina[0])
-        columnaactual = 0
+        self.cols= len(maquina[0])
         ultimouso = -5
         for i in range(n):
             columnamaxima = 0
             preciocolumnamaximo = 0
     # Find the column with highest price
-            for j in range(cols):
+            for j in range(self.cols):
                 preciocolumna = 0
                 for k in range(rows):
                     preciocolumna = preciocolumna + maquina[k][j]
@@ -49,35 +57,24 @@ class VendingMachine:
     #The distance is calculated as the absolute value of the difference of the position initial
     #to the new position.
             if math.fabs(tiempoactual - ultimouso) >= 5:
-                distancia = math.fabs(columnamaxima - columnaactual)
-                if distancia > (cols - distancia):
-                    distancia = cols - distancia
-                contador = contador + distancia
-                columnaactual = columnamaxima
+                self.rotate(columnamaxima)
     # The purchases involves changes in the value of the ultime use and the
     # retired of the buyed articled.
             ultimouso = tiempoactual
             maquina[shelfs[i]][columns[i]] = 0
-            distancia = math.fabs(columns[i] - columnaactual)
-            if distancia > (cols - distancia):
-                distancia = cols - distancia
-            columnaactual = columns[i]
-            contador =  contador + distancia
+            self.rotate(columns[i])
 # At the last, the machine rote to most expensive column.
         columnamaxima = 0
         preciocolumnamaximo = 0
-        for j in range(cols):
+        for j in range(self.cols):
             preciocolumna = 0
             for k in range(rows):
                 preciocolumna = preciocolumna + maquina[k][j]
             if preciocolumnamaximo < preciocolumna:
                 preciocolumnamaximo = preciocolumna
                 columnamaxima = j
-        distancia = math.fabs(columnamaxima - columnaactual)
-        if distancia > (cols - distancia):
-            distancia = cols - distancia
-        contador = contador + distancia
-        return contador
+        self.rotate(columnamaxima)
+        return self.contador
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
