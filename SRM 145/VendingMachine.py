@@ -63,6 +63,7 @@ class VendingMachine:
                 distancia = cols - distancia
             columnaactual = columns[i]
             contador =  contador + distancia
+# At the last, the machine rote to most expensive column.
         columnamaxima = 0
         preciocolumnamaximo = 0
         for j in range(cols):
