@@ -13,6 +13,18 @@ class VendingMachine:
         self.contador = self.contador + distancia
         self.columnaactual = newcolumn
 
+    def findMaxcol(self):
+        self.columnamaxima = 0
+        preciocolumnamaximo = 0
+    # Find the column with highest price
+        for j in range(self.cols):
+            preciocolumna = 0
+            for k in range(self.rows):
+                preciocolumna = preciocolumna + self.maquina[k][j]
+            if preciocolumnamaximo < preciocolumna:
+                preciocolumnamaximo = preciocolumna
+                self.columnamaxima = j
+
     def motorUse(self, prices, purchases):
         n = len(purchases)
 # Create lists variables shelfs, columns, times.
@@ -25,55 +37,38 @@ class VendingMachine:
             shelfs.append(int(coordenadas.split(",")[0]))
             columns.append(int(coordenadas.split(",")[1]))
 # Create the representation of the machine
-        maquina = []
-        rows = len(prices)
-        for i in range(rows):
+        self.maquina = []
+        self.rows = len(prices)
+        for i in range(self.rows):
             preciosc = prices[i].split(" ")
             self.cols = len(preciosc)
-            maquina.append([])
+            self.maquina.append([])
             for j in range(self.cols):
-                maquina[i].append(int(preciosc[j]))
+                self.maquina[i].append(int(preciosc[j]))
 # Start the purshases. 
-        self.cols= len(maquina[0])
+        self.cols= len(self.maquina[0])
         ultimouso = -5
         for i in range(n):
-            columnamaxima = 0
-            preciocolumnamaximo = 0
-    # Find the column with highest price
-            for j in range(self.cols):
-                preciocolumna = 0
-                for k in range(rows):
-                    preciocolumna = preciocolumna + maquina[k][j]
-                if preciocolumnamaximo < preciocolumna:
-                   preciocolumnamaximo = preciocolumna
-                   columnamaxima = j
+            self.findMaxcol()
     # We are in the time of purchase
             tiempoactual = times[i]
     # In this case in that purchase is invalid, return - 1.
-            if maquina[shelfs[i]][columns[i]] == 0:
+            if self.maquina[shelfs[i]][columns[i]] == 0:
                 return -1
     #  Verify that the ultime use was more 5 minutes. In this case, the machine
     # rotate to more expensive column.
     #The distance is calculated as the absolute value of the difference of the position initial
     #to the new position.
             if math.fabs(tiempoactual - ultimouso) >= 5:
-                self.rotate(columnamaxima)
+                self.rotate(self.columnamaxima)
     # The purchases involves changes in the value of the ultime use and the
     # retired of the buyed articled.
             ultimouso = tiempoactual
-            maquina[shelfs[i]][columns[i]] = 0
+            self.maquina[shelfs[i]][columns[i]] = 0
             self.rotate(columns[i])
 # At the last, the machine rote to most expensive column.
-        columnamaxima = 0
-        preciocolumnamaximo = 0
-        for j in range(self.cols):
-            preciocolumna = 0
-            for k in range(rows):
-                preciocolumna = preciocolumna + maquina[k][j]
-            if preciocolumnamaximo < preciocolumna:
-                preciocolumnamaximo = preciocolumna
-                columnamaxima = j
-        self.rotate(columnamaxima)
+        self.findMaxcol()
+        self.rotate(self.columnamaxima)
         return self.contador
 
 # CUT begin
