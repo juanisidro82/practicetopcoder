@@ -21,56 +21,31 @@ def viaje(lado1, lado2, tiempo):
         lado2.append(lado1[1])           
         del lado1[0]
         del lado1[0]
-        print "ida"
-        print lado1
-        print lado2
-        print tiempo1
         lado2 = sorted(lado2)
         tiempo1 = tiempo1 + lado2[0]
         lado1.append(lado2[0])
         del lado2[0]
-        print "regreso"
-        print lado1
-        print lado2
-        print tiempo1
         lado1 = sorted(lado1)
         tiempo1 = tiempo1 + lado1[-1]
         lado2.append(lado1[-1])
         lado2.append(lado1[-2])
         del lado1[-2]
         del lado1[-1]
-        print "ida"
-        print lado1
-        print lado2
-        print tiempo1
         lado2 = sorted(lado2)
         tiempo1 = tiempo1 + lado2[0]
         lado1.append(lado2[0])
         del lado2[0]
-        print "regreso"
-        print lado1
-        print lado2
-        print tiempo1
         tiempo1 = viaje(lado1, lado2, tiempo1)
-        print tiempo1        
         lado3 = sorted(lado3)
         tiempo2 = tiempo + lado3[-1]
         lado4.append(lado3[0])
         lado4.append(lado3[-1])           
         del lado3[0]
         del lado3[-1]
-        print "ida"
-        print lado3
-        print lado4
-        print tiempo2
         lado4 = sorted(lado4)
         tiempo2 = tiempo2 + lado4[0]
         lado3.append(lado4[0])
         del lado4[0]
-        print "regreso"
-        print lado3
-        print lado4
-        print tiempo2
         tiempo2 = viaje(lado3, lado4, tiempo2)
         tiempo = tiempo1
         if tiempo > tiempo2:
@@ -87,8 +62,6 @@ class BridgeCrossing:
 
         for time in times:
             lado1.append(time)
-        print lado1
-        print lado2
         
         tiempo = viaje(lado1, lado2, tiempo)
 
