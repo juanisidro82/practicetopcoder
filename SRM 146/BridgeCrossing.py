@@ -51,11 +51,13 @@ def viaje(lado1, lado2, tiempo):
         lado1 = sorted(lado1)
         return tiempo + lado1[1] + lado1[0] + lado1[2]
     if len(lado1) > 3:
+        # My answer
         lado1, lado2, tiempo1 = caminanrapidos(lado1, lado2, tiempo)
         lado1, lado2, tiempo1 = regreso(lado1, lado2, tiempo1)
         lado1, lado2, tiempo1 = caminanlentos(lado1, lado2, tiempo1)
         lado1, lado2, tiempo1 = regreso(lado1, lado2, tiempo1)
         tiempo1 = viaje(lado1, lado2, tiempo1)
+        # What I never thought, i check the editorial.
         lado3, lado4, tiempo2 = caminanextremos(lado3, lado4, tiempo)
         lado3, lado4, tiempo2 = regreso(lado3, lado4, tiempo2)
         tiempo2 = viaje(lado3, lado4, tiempo2)
