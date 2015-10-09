@@ -1,6 +1,42 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
+def caminanrapidos(lado1, lado2, tiempo):
+    lado1 = sorted(lado1)
+    tiempo1 = tiempo + lado1[1]
+    lado2.append(lado1[0])
+    lado2.append(lado1[1])
+    del lado1[0]
+    del lado1[0]
+    return (lado1, lado2, tiempo1)
+
+def caminanlentos(lado1, lado2, tiempo1):
+    lado1 = sorted(lado1)
+    tiempo1 = tiempo1 + lado1[-1]
+    lado2.append(lado1[-1])
+    lado2.append(lado1[-2])
+    del lado1[-2]
+    del lado1[-1]
+    return (lado1, lado2, tiempo1)
+
+
+def caminanextremos(lado3, lado4, tiempo):
+    lado3 = sorted(lado3)
+    tiempo2 = tiempo + lado3[-1]
+    lado4.append(lado3[0])
+    lado4.append(lado3[-1])
+    del lado3[0]
+    del lado3[-1]
+    return (lado3, lado4, tiempo2)
+
+def regreso(lado1, lado2, tiempo1):
+    lado2 = sorted(lado2)
+    tiempo1 = tiempo1 + lado2[0]
+    lado1.append(lado2[0])
+    del lado2[0]
+    return (lado1, lado2, tiempo1)
+
+
 def viaje(lado1, lado2, tiempo):
     lado3 = []
     lado4 = []
@@ -15,37 +51,13 @@ def viaje(lado1, lado2, tiempo):
         lado1 = sorted(lado1)
         return tiempo + lado1[1] + lado1[0] + lado1[2]
     if len(lado1) > 3:
-        lado1 = sorted(lado1)
-        tiempo1 = tiempo + lado1[1]
-        lado2.append(lado1[0])
-        lado2.append(lado1[1])           
-        del lado1[0]
-        del lado1[0]
-        lado2 = sorted(lado2)
-        tiempo1 = tiempo1 + lado2[0]
-        lado1.append(lado2[0])
-        del lado2[0]
-        lado1 = sorted(lado1)
-        tiempo1 = tiempo1 + lado1[-1]
-        lado2.append(lado1[-1])
-        lado2.append(lado1[-2])
-        del lado1[-2]
-        del lado1[-1]
-        lado2 = sorted(lado2)
-        tiempo1 = tiempo1 + lado2[0]
-        lado1.append(lado2[0])
-        del lado2[0]
+        lado1, lado2, tiempo1 = caminanrapidos(lado1, lado2, tiempo)
+        lado1, lado2, tiempo1 = regreso(lado1, lado2, tiempo1)
+        lado1, lado2, tiempo1 = caminanlentos(lado1, lado2, tiempo1)
+        lado1, lado2, tiempo1 = regreso(lado1, lado2, tiempo1)
         tiempo1 = viaje(lado1, lado2, tiempo1)
-        lado3 = sorted(lado3)
-        tiempo2 = tiempo + lado3[-1]
-        lado4.append(lado3[0])
-        lado4.append(lado3[-1])           
-        del lado3[0]
-        del lado3[-1]
-        lado4 = sorted(lado4)
-        tiempo2 = tiempo2 + lado4[0]
-        lado3.append(lado4[0])
-        del lado4[0]
+        lado3, lado4, tiempo2 = caminanextremos(lado3, lado4, tiempo)
+        lado3, lado4, tiempo2 = regreso(lado3, lado4, tiempo2)
         tiempo2 = viaje(lado3, lado4, tiempo2)
         tiempo = tiempo1
         if tiempo > tiempo2:
