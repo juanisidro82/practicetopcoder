@@ -38,6 +38,10 @@ def regreso(lado1, lado2, tiempo1):
 
 
 def viaje(lado1, lado2, tiempo):
+    """ The solution to this problem is more easy, simply compute all this
+    situation using recursion. Two cicle for consider all posibilities of go to
+    other side of the bridging. During the writing code, i ommited read the
+    contraints, because of that. do not consider this solution."""
     lado3 = []
     lado4 = []
     for i in lado1:
