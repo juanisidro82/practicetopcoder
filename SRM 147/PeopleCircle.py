@@ -1,16 +1,9 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
-class CCipher:
-    def decode(self, cipherText, shift):
-        decodificada = ""
-        for letra in cipherText:
-            letraoriginal = ord(letra) - shift
-            if letraoriginal < 65:
-                letraoriginal = letraoriginal + 26
-            letraoriginal = chr(letraoriginal)
-            decodificada = decodificada + letraoriginal
-        return decodificada
+class PeopleCircle:
+    def order(self, numMales, numFemales, K):
+        return ""
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
@@ -40,12 +33,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(cipherText, shift, __expected):
+def do_test(numMales, numFemales, K, __expected):
     startTime = time.time()
-    instance = CCipher()
+    instance = PeopleCircle()
     exception = None
     try:
-        __result = instance.decode(cipherText, shift);
+        __result = instance.order(numMales, numFemales, K);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -66,33 +59,34 @@ def do_test(cipherText, shift, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("CCipher (250 Points)\n\n")
+    sys.stdout.write("PeopleCircle (600 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("CCipher.sample", "r") as f:
+    with open("PeopleCircle.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            cipherText = f.readline().rstrip()
-            shift = int(f.readline().rstrip())
+            numMales = int(f.readline().rstrip())
+            numFemales = int(f.readline().rstrip())
+            K = int(f.readline().rstrip())
             f.readline()
             __answer = f.readline().rstrip()
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(cipherText, shift, __answer)
+            passed += do_test(numMales, numFemales, K, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1444403000
+    T = time.time() - 1444403600
     PT, TT = (T / 60.0, 75.0)
-    points = 250 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
+    points = 600 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))
     sys.stdout.write("Score  : %.2f points\n" % points)
 
