@@ -3,7 +3,26 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 class PeopleCircle:
     def order(self, numMales, numFemales, K):
-        return ""
+        n = numMales + numFemales
+        circulo = ["M"] * n
+        pos = -1
+        """" This work cost algorithm to understand. I consult the editorial.
+        The logic, is the next,  a list is created of size numFemales + numMales
+        with values M, which M indicates that is man.
+        Next, each K is movement , replace M for F, which F indicates that is
+        female. If a movement it occupes a position of letter F, does not count
+        a movement, because, the logic, the position  be removed before.
+        This , in the order in which the letter M is changed by a letter F ,
+        will be in the order they were eliminated in the game.
+        """
+        for i in range(numFemales):
+            j = 0
+            while j < K:
+                pos = (pos + 1) % n
+                if circulo[pos] == "M":
+                    j = j + 1
+            circulo[pos] = "F"
+        return "".join(circulo)
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
