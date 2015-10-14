@@ -1,19 +1,43 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
+def calculateposition(ndir, posicionactual):
+    if ndir == 0:
+        m = posicionactual[0] / 2
+        n = posicionactual[1] / 2
+    if ndir == 1:
+        m = (posicionactual[0] - 1) / 2
+        n = posicionactual[1] / 2
+    if ndir == 2:
+        m = (posicionactual[0] - 1) / 2
+        n = (posicionactual[1] - 1) / 2
+    if ndir == 3:
+        m = posicionactual[0] / 2
+        n = (posicionactual[1] - 1) / 2
+    return (m, n)
+
+def getmapa(map):
+    mapa = []
+    for i in range(len(map)):
+        mapa.append([])
+        for j in range(len(map[i])):
+            mapa[i].append(map[i][j])
+    return mapa
+
+def getnB(map, mapa):
+    nB = 0
+    for i in range(len(map)):
+        for j in range(len(map[i])):
+            if mapa[i][j] == "B":
+                nB = nB + 1
+    return nB
+
+
 class BrickByBrick:
     def timeToClear(self, map):
         direcciones = [[1, 1], [-1, 1,], [-1, -1], [1, -1]]
-        mapa = []
-        for i in range(len(map)):
-            mapa.append([])
-            for j in range(len(map[i])):
-                mapa[i].append(map[i][j])
-        nB = 0
-        for i in range(len(map)):
-            for j in range(len(map[i])):
-                if mapa[i][j] == "B":
-                    nB = nB + 1
+        mapa = getmapa(map)
+        nB = getnB(map, mapa)
         ndir = 0
         posicioninicial = [1, 0]
         direccion = direcciones[ndir]
@@ -21,8 +45,6 @@ class BrickByBrick:
         nmap = len(map)
         time = 0
         ultimorompimiento = [-1, -1]
-        m = 0
-        n = 0
         while True:
             time = time + 1
             posicionactual = [posicioninicial[0] + direccion[0], posicioninicial[1] + direccion[1]]
@@ -31,18 +53,7 @@ class BrickByBrick:
                 return -1
             if ultimorompimiento == [-1, -1]:
                 ultimorompimiento = [posicioninicial, ndir]
-            if ndir == 0:
-                m = posicionactual[0] / 2
-                n = posicionactual[1] / 2
-            if ndir == 1:
-                m = (posicionactual[0] - 1) / 2
-                n = posicionactual[1] / 2
-            if ndir == 2:
-                m = (posicionactual[0] - 1) / 2
-                n = (posicionactual[1] - 1) / 2
-            if ndir == 3:
-                m = posicionactual[0] / 2
-                n = (posicionactual[1] - 1) / 2
+            m, n = calculateposition(ndir, posicionactual)
             cuadro = "#"
             if m < mmap and m >= 0 and n < nmap and n >= 0:
                 cuadro = mapa[n][m]
