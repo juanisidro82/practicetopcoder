@@ -1,9 +1,55 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
+import fractions
+
+def factorizar(K):
+    divisores = []
+    k = int(math.ceil(math.sqrt(K)))
+    for i in range(1, k+ 1):
+        if K%i == 0:
+            divisores.append(i)
+            if not K/i in divisores:
+                divisores.append(K/i)
+    return sorted(divisores)
+
 
 class AnArray:
     def solveProblem(self, A, K):
+        divisores = factorizar(K)
+        matriz = dict()
+        divisoresdict = {}
+        for i in range(len(divisores)):
+            divisoresdict[divisores[i]] = i
+        matrizdp = dict()
+        for i in range(len(A)+1):
+            matrizdp[i] = dict()
+            for j in range(len(divisores)):
+                matrizdp[i][j] = dict()
+                for l in range(4):
+                    matrizdp[i][j][l] = 0
+        matrizdp[0][0][0] = 1
+        print len(A), len(divisores)
+        for i in range(1, len(A)+ 1):
+            for j in range(len(divisores)):
+                # Me costo trabaja entender esta parte, de 4, es el numero de
+                # factores que quedan 3, 2, 1 y nada
+                for l in range(4):
+                    # Aca se pone el numero de caso en que no incluye el factor A[i]
+                    # en este sera n - 1 caso, sobrara el mismo numero de monedas
+                    # y sera el mismo numero que se dividira entre residuos
+                    matrizdp[i][j][l] = matrizdp[i-1][j][l]
+                    if l == 0:
+                        # como ya no queda elementos que eliminar, se salta
+                        continue
+                    # Ahora se aborda, los casos en que A[n] esta involucrado,
+                    # como es el mismo factor, se elimina A[n], obteniendo el GCD
+                    # como entre diviores[j] y A[n]
+                    g = fractions.gcd(A[i-1], divisores[j])
+                    nuevoK = divisoresdict[divisores[j]/g]
+                    matrizdp[i][j][l] += matrizdp[i-1][nuevoK][l-1]
+        return matrizdp[len(A)][len(divisores) -1][3]
 
+        # Encontrar divisores de K
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
