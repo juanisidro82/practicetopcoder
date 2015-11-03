@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
+
 def obtenerpoints(C, tree):
     points = []
     for i in range(len(C)):
@@ -14,77 +15,60 @@ def obtenerpoints(C, tree):
                 points[i].append(j + 1)
     return points
 
-
-def calcularmovimientos(tree, A, B, turno):
-    print resultados
+def vectortoString(A):
     stringA = []
-    stringB = []
     for a in A:
         stringA.append(str(a))
-    for b in B:
-        stringB.append(str(b))
     stringA = ",".join(stringA)
-    stringB = ','.join(stringB)
-    if not stringA in resultados[turno]:
-        resultados[turno][stringA] = {}
-    if stringB in resultados[turno][stringA]:
-        return resultados[turno][stringA][stringB]
+    return stringA
 
+def calcularmovimientos(tree, CP, NP, turno):
+    stringCP = vectortoString(CP)
+    stringNP = vectortoString(NP)
+    if turno == 'A':
+        nuevoturno = 'B'
+        resultados[turno][stringCP][stringNP] = -1
+    if turno == 'B':
+        nuevoturno = 'A'
+        resultados[turno][stringCP][stringNP] = 10
+    if not stringNP in resultados[nuevoturno]:
+        resultados[nuevoturno][stringNP] = {}
 
-    if turno == 'A':
-        points = obtenerpoints(A, tree)
-    elif turno == 'B':
-        points = obtenerpoints(B, tree)
-    if turno == 'A':
-        for i in range(len(points)):
-            newpoints = points[i]
-            newpoints.append(A[i])
-            for b in B:
-                if b in newpoints:
-                    newpoints.remove(b)
-            bestValueA = 0
-            for newpoint in newpoints:
-                oldvalue = A[i]
-                A[i] = newpoint
-                newA = sorted(A)
-                movimientos = calcularmovimientos(tree, newA, B, 'B')
-                A[i] = oldvalue
-                if bestValueA < movimientos:
-                    bestValueA = movimientos
-        resultados[turno][stringA][stringB] = bestValueA
-        print "A, B, turno"
-        print A
-        print B
-        print turno
-        print "movimientos"
-        print bestValueA
-        return bestValueA
-    elif turno == 'B':
-        for i in range(len(points)):
-            newpoints = points[i]
-            bestValueB = 10000000000000000000000000
-            for a in A:
-                if a in newpoints:
-                    bestValueB = 1
+    points = obtenerpoints(CP, tree)
+    for i in range(len(points)):
+        newpoints = points[i]
+        if turno == 'A':
+            adiccion = 0
+            newpoints.append(CP[i])
+            for np in NP:
+                if np in newpoints:
+                    newpoints.remove(np)
+        if turno == 'B':
+            adiccion = 1
+            for np in NP:
+                if np in newpoints:
+                    resultados[turno][stringCP][stringNP] = 1
                     break
-            if bestValueB == 1:
+            if resultados[turno][stringCP][stringNP] == 1:
                 newpoints = []
-            for newpoint in newpoints:
-                oldvalue = B[i]
-                B[i] = newpoint
-                newB = sorted(B)
-                movimientos = calcularmovimientos(tree, A, newB, 'A') + 1
-                B[i] = oldvalue
-                if bestValueB > movimientos:
-                    bestValueB = movimientos
-        resultados[turno][stringA][stringB] = bestValueB
-        print "A, B, turno"
-        print A
-        print B
-        print turno
-        print "movimientos"
-        print bestValueB
-        return bestValueB
+
+        for newpoint in newpoints:
+            oldvalue = CP[i]
+            CP[i] = newpoint
+            newCP = sorted(CP)
+            CP[i] = oldvalue
+            newstringCP = vectortoString(newCP)
+            if newstringCP in resultados[nuevoturno][stringNP]:
+                movimientos = resultados[nuevoturno][stringNP][newstringCP]
+            else:
+                movimientos = calcularmovimientos(tree, NP, newCP, nuevoturno) + adiccion
+            if (resultados[turno][stringCP][stringNP] < movimientos) and turno == 'A':
+                resultados[turno][stringCP][stringNP] = movimientos
+            if (resultados[turno][stringCP][stringNP] > movimientos) and turno == 'B':
+                resultados[turno][stringCP][stringNP] = movimientos
+
+    return resultados[turno][stringCP][stringNP]
+
 
 
 class Treestrat:
@@ -95,11 +79,18 @@ class Treestrat:
             newA.append(a)
         for b in B:
             newB.append(b)
-        global resultados
+        global resultados, analisis
         resultados = {'A': {}, 'B': {}}
         newA = sorted(newA)
         newB = sorted(newB)
+        stringA = vectortoString(newA)
+        stringB = vectortoString(newB)
+        if not stringA in resultados['A']:
+            resultados['A'][stringA] = {}
         movimientos = calcularmovimientos(tree, newA, newB, 'A')
+        print resultados
+        print stringA
+        print stringB
         return movimientos
 
 # CUT begin
