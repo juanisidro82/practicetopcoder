@@ -10,7 +10,7 @@ class VendingMachine:
         distancia = math.fabs(newcolumn - self.columnaactual)
         if distancia > (self.cols - distancia):
             distancia = self.cols - distancia
-        self.contador = self.contador + distancia
+        self.contador +=  distancia
         self.columnaactual = newcolumn
 
     def findMaxcol(self):
@@ -20,7 +20,7 @@ class VendingMachine:
         for j in range(self.cols):
             preciocolumna = 0
             for k in range(self.rows):
-                preciocolumna = preciocolumna + self.maquina[k][j]
+                preciocolumna += self.maquina[k][j]
             if preciocolumnamaximo < preciocolumna:
                 preciocolumnamaximo = preciocolumna
                 self.columnamaxima = j
@@ -33,18 +33,18 @@ class VendingMachine:
         times = []
         for p in purchases:
             coordenadas = p.split(":")[0]
-            times.append(int(p.split(":")[1]))
-            shelfs.append(int(coordenadas.split(",")[0]))
-            columns.append(int(coordenadas.split(",")[1]))
+            times += int(p.split(":")[1]),
+            shelfs += int(coordenadas.split(",")[0]),
+            columns += int(coordenadas.split(",")[1]),
 # Create the representation of the machine
         self.maquina = []
         self.rows = len(prices)
         for i in range(self.rows):
             preciosc = prices[i].split(" ")
             self.cols = len(preciosc)
-            self.maquina.append([])
+            self.maquina += [],
             for j in range(self.cols):
-                self.maquina[i].append(int(preciosc[j]))
+                self.maquina[i] += int(preciosc[j]),
 # Start the purshases. 
         self.cols= len(self.maquina[0])
         ultimouso = -5

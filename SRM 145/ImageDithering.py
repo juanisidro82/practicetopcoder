@@ -8,7 +8,7 @@ class ImageDithering:
         for row in screen:
             for pixel in row:
                 if pixel in colors:
-                    npixels = npixels + 1
+                    npixels += 1
         return npixels
 
 # CUT begin
