@@ -7,8 +7,8 @@ class GoldenChain:
         n = len(sections)
         cortadas = 0
         while len(sections) > cortadas:
-            sections[0] = sections[0] - 1
-            cortadas = cortadas + 1
+            sections[0] -= 1
+            cortadas +=  1
             if sections[0] == 0:
                 del sections[0]
         return cortadas

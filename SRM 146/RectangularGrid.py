@@ -8,7 +8,7 @@ class RectangularGrid:
             for j in range(1, height + 1):
                 if i == j:
                     continue
-                rectangulos = rectangulos + (width -i + 1) * (height - j + 1)
+                rectangulos += (width -i + 1) * (height - j + 1)
         return rectangulos
 
 # CUT begin

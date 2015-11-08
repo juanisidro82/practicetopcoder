@@ -20,7 +20,7 @@ class PeopleCircle:
             while j < K:
                 pos = (pos + 1) % n
                 if circulo[pos] == "M":
-                    j = j + 1
+                    j += 1
             circulo[pos] = "F"
         return "".join(circulo)
 
