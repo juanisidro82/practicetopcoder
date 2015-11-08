@@ -8,15 +8,15 @@ class WidgetRepairs:
         for i in arrivals:
             if acum == 0 and i == 0:
                 continue
-            acum = acum + i - numPerDay
+            acum += i - numPerDay
             if acum < 0:
                 acum = 0
-            ndays = ndays + 1
+            ndays += 1
         resi = acum % numPerDay
         if resi == 0:
-            ndays = ndays + acum / numPerDay
+            ndays += acum / numPerDay
         else:
-            ndays = ndays + acum / numPerDay + 1
+            ndays += acum / numPerDay + 1
         return ndays
 
 # CUT begin

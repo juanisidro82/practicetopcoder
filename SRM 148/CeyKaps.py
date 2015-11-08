@@ -11,7 +11,7 @@ class CeyKaps:
                 dictswitch = {temp[0]: temp[1], temp[1]:temp[0]}
                 if letraactual in dictswitch.keys():
                     letraactual = dictswitch[letraactual]
-            deciphed = deciphed + letraactual
+            deciphed += letraactual
         return deciphed
 
 # CUT begin

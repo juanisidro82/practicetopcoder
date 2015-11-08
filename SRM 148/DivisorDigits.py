@@ -11,7 +11,7 @@ class DivisorDigits:
             if digito == 0:
                 continue
             if (number % digito) == 0:
-                ndivisors = ndivisors + 1
+                ndivisors +=  1
         return ndivisors
 
 # CUT begin

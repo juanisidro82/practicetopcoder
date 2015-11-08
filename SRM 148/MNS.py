@@ -20,8 +20,8 @@ class MNS:
                 continue
             if p in bueno:
                 continue
-            bueno.append(p)
-            CM = CM + 1
+            bueno += p,
+            CM += 1
         return CM
 
 # CUT begin

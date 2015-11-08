@@ -20,7 +20,7 @@ class InterestingDigits:
                     valido = False
                     break
             if valido:
-                interesting.append(i)
+                interesting += i,
         return interesting
 
 # CUT begin

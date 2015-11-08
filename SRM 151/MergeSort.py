@@ -17,24 +17,23 @@ def mergeSort(a, ncomp):
 def merge(b, c, ncomp):
     a = []
     while len(b) > 0 and len(c) > 0:
-        ncomp = ncomp + 1
+        ncomp += 1
         if b[0] < c[0]:
-            a.append(b[0])
+            a += b[0],
             del b[0]
             continue
         if b[0] > c[0]:
-            a.append(c[0])
+            a += c[0],
             del c[0]
             continue
         if b[0] == c[0]:
-            a.append(b[0])
-            a.append(c[0])
+            a += b[0], c[0],
             del b[0]
             del c[0]
     if len(b) > 0:
-        a = a + b
+        a += b
     if len(c) > 0:
-        a = a + c
+        a += c
     return (a, ncomp)
 
 

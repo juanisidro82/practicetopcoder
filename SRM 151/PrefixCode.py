@@ -14,7 +14,7 @@ class PrefixCode:
                 n = len(words[j])
                 if m < n:
                     if words[i][0:m] == words[j][0:m]:
-                        prefijos.append(i)
+                        prefijos += i,
                         break
         if len(prefijos) > 0:
             return "No, " + str(prefijos[0])

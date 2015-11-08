@@ -19,9 +19,9 @@ def calculateposition(ndir, posicionactual):
 def getmapa(map):
     mapa = []
     for i in range(len(map)):
-        mapa.append([])
+        mapa += [],
         for j in range(len(map[i])):
-            mapa[i].append(map[i][j])
+            mapa[i] += map[i][j]
     return mapa
 
 def getnB(map, mapa):
@@ -29,7 +29,7 @@ def getnB(map, mapa):
     for i in range(len(map)):
         for j in range(len(map[i])):
             if mapa[i][j] == "B":
-                nB = nB + 1
+                nB += 1
     return nB
 
 
@@ -59,9 +59,9 @@ class BrickByBrick:
                 cuadro = mapa[n][m]
             if cuadro != ".":
                 if ndir % 2 == posicionactual[0] % 2:
-                    ndir = ndir + 1
+                    ndir += 1
                 else:
-                    ndir = ndir - 1
+                    ndir -= 1
                 if ndir == 4:
                     ndir = 0
                 if ndir == -1:
@@ -70,7 +70,7 @@ class BrickByBrick:
             if cuadro == "B":
                 mapa[n][m] = "."
                 ultimorompimiento = [posicioninicial, ndir]
-                nB = nB - 1
+                nB -= 1
                 if nB == 0:
                     break
         return time
