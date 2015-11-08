@@ -9,8 +9,7 @@ class LiveConcert:
         songschoiced = {}
         for i in range(n):
             if s[i] in songschoiced.keys():
-                if songschoiced[s[i]] < h[i]:
-                    songschoiced[s[i]] = h[i]
+                songschoiced[s[i]] = max(songschoiced[s[i]], h[i])
             else:
                 songschoiced[s[i]] = h[i]
         timeconcert = 0
