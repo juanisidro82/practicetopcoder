@@ -63,8 +63,7 @@ def viaje(lado1, lado2, tiempo):
         lado3, lado4, tiempo2 = regreso(lado3, lado4, tiempo2)
         tiempo2 = viaje(lado3, lado4, tiempo2)
         tiempo = tiempo1
-        if tiempo > tiempo2:
-           tiempo = tiempo2
+        tiempo = min(tiempo, tiempo2)
 
     return tiempo
 

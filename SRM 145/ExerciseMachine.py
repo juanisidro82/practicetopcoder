@@ -17,7 +17,7 @@ class ExerciseMachine:
         partes = 0
         for i in range(1,100):
             if (tiempo*i) % 100 == 0:
-                partes = partes + 1
+                partes += 1
         return partes
 
 

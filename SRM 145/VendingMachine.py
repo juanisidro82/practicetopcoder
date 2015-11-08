@@ -8,8 +8,7 @@ class VendingMachine:
 
     def rotate(self, newcolumn):
         distancia = math.fabs(newcolumn - self.columnaactual)
-        if distancia > (self.cols - distancia):
-            distancia = self.cols - distancia
+        distancia = min(distancia, self.cols - distancia)
         self.contador +=  distancia
         self.columnaactual = newcolumn
 

@@ -11,8 +11,7 @@ class Pricing:
                 for k in range(j, n):
                     for l in range(k, n):
                         ventasg = (j - i) * price[i] + (k - j) * price[j] + (l -k) * price[k] + (n - l) * price[l]
-                        if ventas < ventasg:
-                            ventas = ventasg
+                        ventas = max(ventas, ventasg)
         return ventas
 
 # CUT begin

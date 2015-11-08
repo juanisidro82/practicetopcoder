@@ -7,9 +7,9 @@ class CCipher:
         for letra in cipherText:
             letraoriginal = ord(letra) - shift
             if letraoriginal < 65:
-                letraoriginal = letraoriginal + 26
+                letraoriginal += 26
             letraoriginal = chr(letraoriginal)
-            decodificada = decodificada + letraoriginal
+            decodificada += letraoriginal
         return decodificada
 
 # CUT begin

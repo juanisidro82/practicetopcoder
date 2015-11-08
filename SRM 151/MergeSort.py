@@ -41,7 +41,7 @@ class MergeSort:
     def howManyComparisons(self, numbers):
         listnumbers = []
         for number in numbers:
-            listnumbers.append(number)
+            listnumbers += number,
         ncomp = 0
         listnumbers, ncomp = mergeSort(listnumbers, ncomp)
         return ncomp

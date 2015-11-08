@@ -45,7 +45,7 @@ class BrickByBrick:
         time = 0
         ultimorompimiento = [-1, -1]
         while True:
-            time = time + 1
+            time += 1
             posicionactual = [posicioninicial[0] + direccion[0], posicioninicial[1] + direccion[1]]
             posicioninicial = posicionactual
             if ultimorompimiento == [posicioninicial, ndir]:

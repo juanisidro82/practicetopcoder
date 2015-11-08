@@ -10,8 +10,7 @@ class BigBurger:
             if tiempolibre < arrival[i]:
                 tiempolibre = arrival[i]
             espera = tiempolibre - arrival[i]
-            if esperamaxima < espera:
-                esperamaxima = espera
+            esperamaxima = max(espera, esperamaxima)
             tiempolibre += service[i]
         return esperamaxima
 

@@ -19,13 +19,13 @@ class PowerOutage:
         n = len(fromJunction)
         sumadistancia1 = 0
         for i in range(n):
-            sumadistancia1 = sumadistancia1 + ductLength[i]
+            sumadistancia1 += ductLength[i]
         nodos = []
         for i in range(n):
             if not toJunction[i] in nodos:
-               nodos.append(toJunction[i])
+               nodos += toJunction[i],
             if not fromJunction[i] in nodos:
-               nodos.append(fromJunction[i])
+               nodos += fromJunction[i],
         m = len(nodos)
         nodos = sorted(nodos)
         distanciahastanodo = {}
@@ -37,8 +37,7 @@ class PowerOutage:
                 if nodo == toJunction[j]:
                     distanciahastanodo[nodo] = distanciahastanodo[fromJunction[j]] + ductLength[j]
                     break
-            if distanciahastanodo[nodo] > distanciamaslarga:
-               distanciamaslarga = distanciahastanodo[nodo]
+            distanciamaslarga = max(distanciamaslarga, distanciahastanodo[nodo])
         return sumadistancia1 * 2 - distanciamaslarga
 
 

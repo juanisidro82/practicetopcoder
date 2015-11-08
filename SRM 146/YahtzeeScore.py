@@ -10,8 +10,7 @@ class YahtzeeScore:
                 if tos != activeyield:
                    continue
                 puntos +=  tos
-            if puntos > maxPoint:
-                maxPoint = puntos
+            maxPoint = max(puntos, maxPoint)
         return maxPoint
 
 # CUT begin
