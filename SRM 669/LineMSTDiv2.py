@@ -26,12 +26,12 @@ class LineMSTDiv2:
                     for k in range(i, j):
                         if SMN[k] == 2:
                             ways = 1
-                    waysSMN = (waysSMN * ways)
-                    waysSMN =  waysSMN % 1000000007
+                    waysSMN *=  ways
+                    waysSMN %=  1000000007
             waystotal += waysSMN
-            waystotal = waystotal % 1000000007
-        waystotal = waystotal * math.factorial(N) / 2
-        waystotal = waystotal % 1000000007
+            waystotal %= 1000000007
+        waystotal *= math.factorial(N) / 2
+        waystotal %= 1000000007
         return waystotal
 
 # CUT begin

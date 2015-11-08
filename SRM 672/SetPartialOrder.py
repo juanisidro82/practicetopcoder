@@ -1,22 +1,28 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
-class VerySecureEncryption:
-    def encrypt(self, message, key, K):
-        n = len(message)
-        encriptadoantiguo = []
-        encriptadonuevo = []
-        for i in range(n):
-            encriptadoantiguo += message[i],
-        encriptadonuevo = [""] * n
-        for j in range(K):
-            for i in range(n):
-                pos = key[i] % n
-                encriptadonuevo[pos] = encriptadoantiguo[i]
-            for m in range(n):
-                 encriptadoantiguo[m] = encriptadonuevo[m]
-        encriptadonuevo = "".join(encriptadonuevo)
-        return encriptadonuevo
+class SetPartialOrder:
+    def compareSets(self, a, b):
+        A = sorted(a)
+        B = sorted(b)
+        i = 0
+        if len(A) == len(B):
+            respuesta = "EQUAL"
+        if len(A) > len(B):
+            respuesta = "GREATER"
+        if len(B) > len(A):
+            respuesta = "LESS" 
+        while True:
+            if A[i] != B[i] and respuesta == "EQUAL":
+                return "INCOMPARABLE"
+            if not B[i] in A and respuesta == "GREATER":
+                return "INCOMPARABLE"
+            if not A[i] in B and respuesta == "LESS":
+                return "INCOMPARABLE"
+            i += 1
+            if i == len(A) or i == len(B):
+                break
+        return respuesta
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
@@ -46,12 +52,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(message, key, K, __expected):
+def do_test(a, b, __expected):
     startTime = time.time()
-    instance = VerySecureEncryption()
+    instance = SetPartialOrder()
     exception = None
     try:
-        __result = instance.encrypt(message, key, K);
+        __result = instance.compareSets(a, b);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -72,35 +78,37 @@ def do_test(message, key, K, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("VerySecureEncryption (250 Points)\n\n")
+    sys.stdout.write("SetPartialOrder (250 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("VerySecureEncryption.sample", "r") as f:
+    with open("SetPartialOrder.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            message = f.readline().rstrip()
-            key = []
+            a = []
             for i in range(0, int(f.readline())):
-                key.append(int(f.readline().rstrip()))
-            key = tuple(key)
-            K = int(f.readline().rstrip())
+                a.append(int(f.readline().rstrip()))
+            a = tuple(a)
+            b = []
+            for i in range(0, int(f.readline())):
+                b.append(int(f.readline().rstrip()))
+            b = tuple(b)
             f.readline()
             __answer = f.readline().rstrip()
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(message, key, K, __answer)
+            passed += do_test(a, b, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1444909851
+    T = time.time() - 1446763824
     PT, TT = (T / 60.0, 75.0)
     points = 250 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))

@@ -7,9 +7,9 @@ def factorizar(K):
     k = int(math.ceil(math.sqrt(K)))
     for i in range(1, k+ 1):
         if K%i == 0:
-            divisores.append(i)
+            divisores += i,
             if not K/i in divisores:
-                divisores.append(K/i)
+                divisores += K/i,
     return sorted(divisores)
 
 
@@ -28,7 +28,6 @@ class AnArray:
                 for l in range(4):
                     matrizdp[i][j][l] = 0
         matrizdp[0][0][0] = 1
-        print len(A), len(divisores)
         for i in range(1, len(A)+ 1):
             for j in range(len(divisores)):
                 # Me costo trabaja entender esta parte, de 4, es el numero de

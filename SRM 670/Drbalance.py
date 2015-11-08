@@ -5,9 +5,9 @@ def balance(s):
     value = 0
     for caracter in s:
         if caracter == "+":
-            value = value + 1
+            value += 1
         if caracter == "-":
-            value = value - 1
+            value -= 1
     return value
 
 def negativity(lists):
@@ -16,7 +16,7 @@ def negativity(lists):
         prefix = lists[0:(i+1)]
         balanceprefix = balance(prefix)
         if balanceprefix < 0:
-            negativity = negativity + 1
+            negativity += 1
     return negativity
 
 
@@ -38,10 +38,10 @@ class Drbalance:
             if i == len(lists):
                 break
             if lists[i] == "+":
-                i = i + 1
+                i += 1
                 continue
             lists[i] = "+"
-            cambios = cambios + 1
+            cambios += 1
             negatividad = negativity(lists)
         return cambios
 

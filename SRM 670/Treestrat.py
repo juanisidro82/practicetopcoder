@@ -2,97 +2,14 @@
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 
-def obtenerpoints(C, tree):
-    points = []
-    for i in range(len(C)):
-        points.append([])
-        # Primero se determina las jugadas hacia abajo
-        if C[i] != 0:
-            points[i].append(tree[C[i]-1])
-        # Luego las jugadas hacia arriba
-        for j in range(len(tree)):
-            if tree[j] == C[i]:
-                points[i].append(j + 1)
-    return points
-
-def vectortoString(A):
-    stringA = []
-    for a in A:
-        stringA.append(str(a))
-    stringA = ",".join(stringA)
-    return stringA
-
-def calcularmovimientos(tree, CP, NP, turno):
-    stringCP = vectortoString(CP)
-    stringNP = vectortoString(NP)
-    if turno == 'A':
-        nuevoturno = 'B'
-        resultados[turno][stringCP][stringNP] = -1
-    if turno == 'B':
-        nuevoturno = 'A'
-        resultados[turno][stringCP][stringNP] = 10
-    if not stringNP in resultados[nuevoturno]:
-        resultados[nuevoturno][stringNP] = {}
-
-    points = obtenerpoints(CP, tree)
-    for i in range(len(points)):
-        newpoints = points[i]
-        if turno == 'A':
-            adiccion = 0
-            newpoints.append(CP[i])
-            for np in NP:
-                if np in newpoints:
-                    newpoints.remove(np)
-        if turno == 'B':
-            adiccion = 1
-            for np in NP:
-                if np in newpoints:
-                    resultados[turno][stringCP][stringNP] = 1
-                    break
-            if resultados[turno][stringCP][stringNP] == 1:
-                newpoints = []
-
-        for newpoint in newpoints:
-            oldvalue = CP[i]
-            CP[i] = newpoint
-            newCP = sorted(CP)
-            CP[i] = oldvalue
-            newstringCP = vectortoString(newCP)
-            if newstringCP in resultados[nuevoturno][stringNP]:
-                movimientos = resultados[nuevoturno][stringNP][newstringCP]
-            else:
-                movimientos = calcularmovimientos(tree, NP, newCP, nuevoturno) + adiccion
-            if (resultados[turno][stringCP][stringNP] < movimientos) and turno == 'A':
-                resultados[turno][stringCP][stringNP] = movimientos
-            if (resultados[turno][stringCP][stringNP] > movimientos) and turno == 'B':
-                resultados[turno][stringCP][stringNP] = movimientos
-
-    return resultados[turno][stringCP][stringNP]
-
-
-
 class Treestrat:
     def roundcnt(self, tree, A, B):
-        newA = []
-        newB = []
-        for a in A:
-            newA.append(a)
+        # primer paso, simplificar B, y expresarlo de otra manera, se va expresar
+        # como la distancia maxima que tarda en llegar a determinado punto
+        distancias = []
         for b in B:
-            newB.append(b)
-        global resultados, analisis
-        resultados = {'A': {}, 'B': {}}
-        newA = sorted(newA)
-        newB = sorted(newB)
-        stringA = vectortoString(newA)
-        stringB = vectortoString(newB)
-        if not stringA in resultados['A']:
-            resultados['A'][stringA] = {}
-        movimientos = calcularmovimientos(tree, newA, newB, 'A')
-        print resultados
-        print stringA
-        print stringB
-        return movimientos
-
+             b
+        return 0
 # CUT begin
 # TEST CODE FOR PYTHON {{{
 import sys, time, math

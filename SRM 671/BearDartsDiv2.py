@@ -1,23 +1,30 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
-class VerySecureEncryption:
-    def encrypt(self, message, key, K):
-        n = len(message)
-        encriptadoantiguo = []
-        encriptadonuevo = []
-        for i in range(n):
-            encriptadoantiguo += message[i],
-        encriptadonuevo = [""] * n
-        for j in range(K):
-            for i in range(n):
-                pos = key[i] % n
-                encriptadonuevo[pos] = encriptadoantiguo[i]
-            for m in range(n):
-                 encriptadoantiguo[m] = encriptadonuevo[m]
-        encriptadonuevo = "".join(encriptadonuevo)
-        return encriptadonuevo
-
+class BearDartsDiv2:
+    def count(self, w):
+        mulDict = collections.defaultdict(list)
+        size = len(w)
+        for x in range(size):
+            for y in range(x + 1, size):
+                mulDict[w[x] * w[y]] += y,
+        for k in mulDict:
+            mulDict[k] = sorted(mulDict[k])
+        ans = 0
+        for x in range(2, size):
+            for y in range(x + 1, size):
+                if w[y] % w[x]:
+                    continue
+                l = mulDict[w[y] / w[x]]
+                left, right = 0, len(l) - 1
+                while left <= right:
+                    mid = (left + right) / 2
+                    if l[mid] >= x:
+                        right = mid - 1
+                    else:
+                        left = mid + 1
+                ans += left
+        return ans
 # CUT begin
 # TEST CODE FOR PYTHON {{{
 import sys, time, math
@@ -46,12 +53,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(message, key, K, __expected):
+def do_test(w, __expected):
     startTime = time.time()
-    instance = VerySecureEncryption()
+    instance = BearDartsDiv2()
     exception = None
     try:
-        __result = instance.encrypt(message, key, K);
+        __result = instance.count(w);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -72,37 +79,35 @@ def do_test(message, key, K, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("VerySecureEncryption (250 Points)\n\n")
+    sys.stdout.write("BearDartsDiv2 (500 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("VerySecureEncryption.sample", "r") as f:
+    with open("BearDartsDiv2.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            message = f.readline().rstrip()
-            key = []
+            w = []
             for i in range(0, int(f.readline())):
-                key.append(int(f.readline().rstrip()))
-            key = tuple(key)
-            K = int(f.readline().rstrip())
+                w.append(int(f.readline().rstrip()))
+            w = tuple(w)
             f.readline()
-            __answer = f.readline().rstrip()
+            __answer = int(f.readline().rstrip())
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(message, key, K, __answer)
+            passed += do_test(w, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1444909851
+    T = time.time() - 1444967094
     PT, TT = (T / 60.0, 75.0)
-    points = 250 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
+    points = 500 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))
     sys.stdout.write("Score  : %.2f points\n" % points)
 

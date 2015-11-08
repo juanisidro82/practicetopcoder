@@ -15,7 +15,7 @@ class LiveConcert:
                 songschoiced[s[i]] = h[i]
         timeconcert = 0
         for song in songschoiced:
-            timeconcert = timeconcert + songschoiced[song]
+            timeconcert += songschoiced[song]
         return timeconcert
 
 # CUT begin

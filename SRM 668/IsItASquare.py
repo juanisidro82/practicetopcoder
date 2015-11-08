@@ -15,7 +15,7 @@ class IsItASquare:
         distancias = []
         for i in range(4):
             for j in range(i +1,  4):
-                distancias.append(distancep2(x[i], x[j], y[i], y[j]))
+                distancias += distancep2(x[i], x[j], y[i], y[j]),
         distancias = sorted(distancias)
         # Primero verificar los lados
         lado = distancias[0]

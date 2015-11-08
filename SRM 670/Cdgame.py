@@ -13,9 +13,9 @@ class Cdgame:
         suma = 0
         sumb = 0
         for valuea in a:
-            suma = suma + valuea
+            suma += valuea
         for valueb in b:
-            sumb = sumb + valueb
+            sumb += valueb
         products = []
         for valuea in a:
             for valueb in b:
@@ -23,7 +23,7 @@ class Cdgame:
                 sumb1 = sumb + valuea - valueb
                 product = suma1 * sumb1
                 if not product in products:
-                    products.append(product)
+                    products += product,
         return len(products)
 
 # CUT begin

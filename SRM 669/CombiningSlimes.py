@@ -13,10 +13,10 @@ class CombiningSlimes:
         while len(a) > 1:
             a = sorted(a)
             newslimes = a[0] + a[-1]
-            mascostas = mascostas + (a[0] * a[-1])
+            mascostas += (a[0] * a[-1])
             del a[-1]
             del a[0]
-            a.append(newslimes)
+            a += newslimes,
         return mascostas
 
 # CUT begin
