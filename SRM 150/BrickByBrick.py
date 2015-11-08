@@ -20,8 +20,7 @@ def getmapa(map):
     mapa = []
     for i in range(len(map)):
         mapa += [],
-        for j in range(len(map[i])):
-            mapa[i] += map[i][j]
+        mapa[i] += map[i]
     return mapa
 
 def getnB(map, mapa):
