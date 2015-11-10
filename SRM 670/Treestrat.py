@@ -4,12 +4,57 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 class Treestrat:
     def roundcnt(self, tree, A, B):
-        # primer paso, simplificar B, y expresarlo de otra manera, se va expresar
-        # como la distancia maxima que tarda en llegar a determinado punto
-        distancias = []
+        N = len(tree) + 1
+        contiguos = []
+        for i in range(N):
+            contiguos += [],
+        for punto in range(1, N):
+            contiguos[punto] += tree[punto -1],
+        for i in range(N - 1):
+            punto = tree[i]
+            contiguos[punto] += i + 1,
+
+        alcanceB = dict()
         for b in B:
-             b
-        return 0
+            alcanceB[b] = 0
+        distancia = 1
+        while len(alcanceB) < N :
+            agregar = set()
+            for punto in alcanceB:
+                agregar = agregar | set(contiguos[punto])
+            agregar = agregar - set(alcanceB)
+            for punto in agregar:
+                alcanceB[punto] = distancia
+            distancia += 1
+
+        salvacionA = dict()
+        descartadoA = []
+        avance = 1
+        for a in A:
+            salvacionA[a] = alcanceB[a]
+        while len(salvacionA) + len(descartadoA) < N:
+            agregar = set()
+            quitar = set()
+            for punto in salvacionA:
+                agregar = agregar | set(contiguos[punto])
+            agregar = agregar - set(salvacionA)
+            for punto in agregar:
+                if alcanceB[punto] > avance:
+                    salvacionA[punto] = alcanceB[punto]
+                else:
+                    if not punto in descartadoA:
+                        descartadoA += punto,
+            for punto in descartadoA:
+                quitar = quitar | set(contiguos[punto])
+            quitar = quitar - set(salvacionA) - set(descartadoA)
+            for punto in quitar:
+                descartadoA += punto,
+        return max(salvacionA.values())
+
+
+
+
+
 # CUT begin
 # TEST CODE FOR PYTHON {{{
 import sys, time, math
