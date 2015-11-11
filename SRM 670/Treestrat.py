@@ -13,16 +13,15 @@ class Treestrat:
                     ret = max(rundfs(y, i + 1, x), ret)
             return max(alcanceB[x], ret)
 
-        print tree
         N = len(tree) + 1
         contiguos = []
-        for i in range(N):
+        for punto in range(N):
             contiguos += [],
         for punto in range(1, N):
-            contiguos[punto] += tree[punto -1],
-        for i in range(N - 1):
-            punto = tree[i]
-            contiguos[punto] += i + 1,
+            contiguos += [],
+            abajo = tree[punto -1]
+            contiguos[punto] += abajo,
+            contiguos[abajo] += punto,
 
         alcanceB = dict()
         for b in B:
