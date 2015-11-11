@@ -4,6 +4,16 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 class Treestrat:
     def roundcnt(self, tree, A, B):
+        def rundfs(x, i, p):
+            if alcanceB[x] <= i:
+                return i
+            ret = 0
+            for y in contiguos[x]:
+                if y != p:
+                    ret = max(rundfs(y, i + 1, x), ret)
+            return max(alcanceB[x], ret)
+
+        print tree
         N = len(tree) + 1
         contiguos = []
         for i in range(N):
@@ -27,29 +37,10 @@ class Treestrat:
                 alcanceB[punto] = distancia
             distancia += 1
 
-        salvacionA = dict()
-        descartadoA = []
-        avance = 1
+        ans = 100
         for a in A:
-            salvacionA[a] = alcanceB[a]
-        while len(salvacionA) + len(descartadoA) < N:
-            agregar = set()
-            quitar = set()
-            for punto in salvacionA:
-                agregar = agregar | set(contiguos[punto])
-            agregar = agregar - set(salvacionA)
-            for punto in agregar:
-                if alcanceB[punto] > avance:
-                    salvacionA[punto] = alcanceB[punto]
-                else:
-                    if not punto in descartadoA:
-                        descartadoA += punto,
-            for punto in descartadoA:
-                quitar = quitar | set(contiguos[punto])
-            quitar = quitar - set(salvacionA) - set(descartadoA)
-            for punto in quitar:
-                descartadoA += punto,
-        return max(salvacionA.values())
+            ans = min(ans, rundfs(a, 0, -1))
+        return ans
 
 
 

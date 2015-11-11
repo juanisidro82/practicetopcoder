@@ -4,33 +4,27 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 class BearDartsDiv2:
     def count(self, w):
         N = len(w)
-        producto2sum = collections.OrderedDict()
+        producto2 = collections.defaultdict(list)
         for i in range(1, N - 2):
             for j in range(0, i):
                 producto = w[i] * w[j]
-                if not producto in producto2sum:
-                    producto2sum[producto] = collections.OrderedDict()
-                    producto2sum[producto][i] = 0
-                if not i in producto2sum[producto]:
-                    ultimoelemento = producto2sum[producto].keys()[-1]
-                    producto2sum[producto][i] = producto2sum[producto][ultimoelemento]
-                producto2sum[producto][i] += 1
+                producto2[producto] += i,
+        for i in producto2:
+            producto2[i] = sorted(producto2[i])
         resultado = 0
         for i in range(3, N):
             for j in range(2, i):
-                if w[i] % w[j] != 0:
+                if w[i] % w[j]:
                     continue
-                cociente = w[i] / w[j]
-                if not cociente in producto2sum:
-                    continue
-                k = j -1
-                while not k in producto2sum[cociente]:
-                    k -= 1
-                    if k == 0:
-                        break
-                if k == 0:
-                    continue
-                resultado += producto2sum[cociente][k]
+                l = producto2[w[i] / w[j]]
+                left, right = 0, len(l) - 1
+                while left <= right:
+                    mid = (left + right) / 2
+                    if l[mid] >= j:
+                        right = mid - 1
+                    else:
+                        left = mid + 1
+                resultado += left
         return resultado
 
 
